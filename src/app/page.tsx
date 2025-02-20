@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type Message = {
   role: "user" | "assistant" | "system";
@@ -12,6 +12,17 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Add this before the handleSubmit function
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,12 +54,12 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-8">
           <h1 className="text-3xl font-bold text-blue-400">USF MSEI Groq UI Assignment</h1>
-          
+
         </header>
 
         <main className="max-w-3xl mx-auto">
           <div className="bg-gray-800 rounded-lg shadow-xl p-4 mb-4">
-            <div className="h-[500px] bg-gray-700 rounded-lg p-4 mb-4 overflow-y-auto">
+            <div className="h-[700px] bg-gray-700 rounded-lg p-4 mb-4 overflow-y-auto">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -61,6 +72,7 @@ export default function Home() {
               {isLoading && (
                 <div className="text-blue-400">Groq is thinking...</div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             <form onSubmit={handleSubmit} className="flex gap-2">
