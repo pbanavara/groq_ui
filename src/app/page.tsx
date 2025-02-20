@@ -42,7 +42,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-400">MSEI Groq UI Assignment</h1>
+          <h1 className="text-3xl font-bold text-blue-400">USF MSEI Groq UI Assignment</h1>
+          
         </header>
 
         <main className="max-w-3xl mx-auto">
